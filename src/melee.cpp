@@ -295,7 +295,11 @@ float player::hit_roll() const
 {
     // Dexterity, skills, weapon and martial arts
     float hit = get_hit();
-
+    // Drunken master makes us hit better
+    if( has_trait( trait_DRUNKEN ) ) {
+        hit += to_turns<float>( get_effect_dur( effect_drunk ) ) / ( used_weapon().is_null() ? 300.0f :
+                400.0f );
+    }
     // Farsightedness makes us hit worse
     if( has_trait( trait_HYPEROPIC ) && !worn_with_flag( "FIX_FARSIGHT" ) &&
         !has_effect( effect_contacts ) ) {

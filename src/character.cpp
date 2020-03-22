@@ -6617,7 +6617,7 @@ void Character::mod_stamina( int mod )
     if( stamina < 0 ) {
         add_effect( effect_winded, 10_turns );
     }
-    stamina = clamp( 0, stamina, get_stamina_max() );
+    stamina = clamp( stamina, 0, get_stamina_max() );
 }
 
 void Character::burn_move_stamina( int moves )
@@ -6713,7 +6713,7 @@ void Character::update_stamina( int turns )
         }
     }
 
-    mod_stamina( roll_remainder( stamina_recovery * turns / stamina_move_cost_modifier() ) );
+    mod_stamina( roll_remainder( stamina_recovery * turns ) );
     add_msg( m_debug, "Stamina recovery: %d", roll_remainder( stamina_recovery * turns ) );
     // Cap at max
     set_stamina( std::min( std::max( get_stamina(), 0 ), max_stam ) );
